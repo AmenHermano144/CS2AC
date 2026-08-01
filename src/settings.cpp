@@ -84,6 +84,8 @@ namespace
 		CConVar<bool> silentaimEnabled {"cs2ac_silentaim_enabled", FCVAR_NONE, "Detect damaging shots that disagree with the visible aim", true};
 		CConVar<bool> subtickSpamEnabled {"cs2ac_subtick_spam_enabled", FCVAR_NONE,
 										  "Detect repeated same-time button aliases carrying pitch or yaw changes", true};
+		CConVar<bool> aiAimbotEnabled {"cs2ac_ai_aimbot_enabled", FCVAR_NONE,
+									   "Detect AI-driven aim trajectories with unnatural smoothness or repeated signatures", true};
 		CConVar<bool> chatAnnouncements {"cs2ac_chat_announcements", FCVAR_NONE, "Show CS2AC detections in public chat", true};
 		CConVar<bool> centerAnnouncements {"cs2ac_center_announcements", FCVAR_NONE, "Show CS2AC detections in the center of the screen", true};
 		CConVar<CUtlString> punishmentCommand {"cs2ac_punishment_command", FCVAR_NONE, "Command run for permanent-ban detections",
@@ -145,6 +147,8 @@ namespace
 				return configuration->silentaimEnabled.GetBool();
 			case DetectionType::SubtickSpam:
 				return configuration->subtickSpamEnabled.GetBool();
+			case DetectionType::AiAimbot:
+				return configuration->aiAimbotEnabled.GetBool();
 			case DetectionType::Count:
 				return false;
 		}

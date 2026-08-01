@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common.h"
+#include "detection/ai_aimbot/ai_aimbot_module.h"
 #include "localization.h"
 #include "sdk/datatypes.h"
 
@@ -517,6 +518,7 @@ namespace detection
 		SilentAimModule silentAim;
 		AimbotModule aimbot;
 		AimlockModule aimlock;
+		AiAimbotModule aiAimbot;
 		DllInjectionModule dllInjection;
 		AntiAimModule antiAim;
 		IrregularBehaviorModule irregularBehavior;

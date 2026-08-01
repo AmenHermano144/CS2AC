@@ -497,6 +497,7 @@ namespace detection
 		silentAim.Load(announce, &shots);
 		aimbot.Load(announce, &shots);
 		aimlock.Load(announce, &shots);
+		aiAimbot.Load(announce, &shots);
 		dllInjection.Load(announce);
 		antiAim.Load(announce);
 		irregularBehavior.Load(announce);
@@ -513,6 +514,7 @@ namespace detection
 		silentAim.Unload();
 		aimbot.Unload();
 		aimlock.Unload();
+		aiAimbot.Unload();
 		dllInjection.Unload();
 		antiAim.Unload();
 		irregularBehavior.Unload();
@@ -530,6 +532,7 @@ namespace detection
 		silentAim.Reset();
 		aimbot.Reset();
 		aimlock.Reset();
+		aiAimbot.Reset();
 		dllInjection.Reset();
 		antiAim.Reset();
 		irregularBehavior.Reset();
@@ -572,6 +575,10 @@ namespace detection
 		{
 			antiAim.OnProcessUsercmds(player, commands, numCommands);
 		}
+		if (settings::IsDetectionEnabled(DetectionType::AiAimbot))
+		{
+			aiAimbot.OnProcessUsercmds(player, commands, numCommands);
+		}
 	}
 
 	void DetectionSystem::OnSetupMove(MovementPlayer *player, PlayerCommand *command, int currentTick)
@@ -594,6 +601,10 @@ namespace detection
 		{
 			antiAim.OnSetupMove(player, command, currentTick);
 		}
+		if (settings::IsDetectionEnabled(DetectionType::AiAimbot))
+		{
+			aiAimbot.OnSetupMove(player, command, currentTick);
+		}
 	}
 
 	void DetectionSystem::OnGameFrame(int currentTick)
@@ -615,6 +626,10 @@ namespace detection
 		if (settings::IsDetectionEnabled(DetectionType::Aimlock))
 		{
 			aimlock.OnGameFrame(currentTick);
+		}
+		if (settings::IsDetectionEnabled(DetectionType::AiAimbot))
+		{
+			aiAimbot.OnGameFrame(currentTick);
 		}
 		if (settings::IsDetectionEnabled(DetectionType::AntiAim))
 		{
@@ -693,6 +708,10 @@ namespace detection
 				{
 					aimbot.OnPlayerHurt(attacker, victim, *shot);
 				}
+				if (settings::IsDetectionEnabled(DetectionType::AiAimbot))
+				{
+					aiAimbot.OnPlayerHurt(attacker, victim, *shot);
+				}
 			}
 		}
 		else if (CS2AC_STREQ(event->GetName(), "player_death"))
@@ -733,6 +752,7 @@ namespace detection
 		silentAim.OnClientDisconnect(player);
 		aimbot.OnClientDisconnect(player);
 		aimlock.OnClientDisconnect(player);
+		aiAimbot.OnClientDisconnect(player);
 		dllInjection.OnClientDisconnect(player);
 		antiAim.OnClientDisconnect(player);
 		irregularBehavior.OnClientDisconnect(player);
